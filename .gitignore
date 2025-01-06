@@ -1,0 +1,82 @@
+# Gradle
+.gradle/
+build/
+
+# Local configuration file (sdk location, etc.)
+local.properties
+
+# Log and temporary files
+*.log
+*.tmp
+*.temp
+
+# Android Studio/IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Android specific
+/.cxx/
+/intermediates/
+/gen/
+/output/
+
+# Keystore files (do not share keystore files for security reasons)
+*.keystore
+*.jks
+
+# Signing/Release files
+signing.properties
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+# Generated files from Jetpack Compose Preview
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+.idea/libraries/
+.idea/caches/
+.idea/assetWizardSettings.xml
+.idea/dictionaries
+.idea/httpRequests
+.idea/uiDesigner.xml
+
+# Gradle Wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
+# Kotlin specific
+*.kotlin_metadata
+*.kotlin_module
+*.class
+
+# Unit test results
+**/test-results/
+**/androidTest-results/
+
+# Coverage reports
+**/coverage-report/
+
+# Proguard
+proguard/
+proguard-rules.pro
+
+# Lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+
+# Crashlytics
+crashlytics.properties
+crashlytics-build.properties
+**/com_crashlytics_build_id.xml
+
+# Firebase
+.google-services.json
+
+# Build cache
+**/.gradle/**/buildOutputCleanup/
+**/.gradle/caches/
+**/.gradle/native/**
