@@ -3,11 +3,13 @@ package com.unilasalle.tp.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.room.util.TableInfo
 import coil.compose.rememberImagePainter
@@ -32,7 +34,13 @@ fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: C
         sheetState = sheetState,
         onDismissRequest = onDismiss
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(
+            modifier = Modifier
+                .padding(16.dp)
+                .imePadding()
+                .padding(bottom = if (sheetState.isVisible) 16.dp else 0.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             Text(text = product.title)
             Spacer(modifier = Modifier.height(8.dp))
             Image(
@@ -59,6 +67,7 @@ fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: C
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp)
+                    .imePadding()
             ) {
                 OutlinedTextField(
                     value = quantity.toString(),
@@ -66,7 +75,9 @@ fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: C
                         quantity = newValue.toIntOrNull() ?: 1
                     },
                     label = { Text("Quantity") },
-                    modifier = Modifier.fillMaxWidth()
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    modifier = Modifier
+                        .fillMaxWidth()
                 )
                 Button(
                     onClick = {

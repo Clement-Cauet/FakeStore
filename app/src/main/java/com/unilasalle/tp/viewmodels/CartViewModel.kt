@@ -6,13 +6,20 @@ import androidx.lifecycle.viewModelScope
 import com.unilasalle.tp.services.database.controllers.CartItemController
 import com.unilasalle.tp.services.database.entities.CartItem
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 class CartViewModel(private val cartItemController: CartItemController) : ViewModel() {
 
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
     val cartItems: StateFlow<List<CartItem>> = _cartItems
+
+    val totalItemCount: StateFlow<Int> = _cartItems.map { items ->
+        items.sumOf { it.quantity }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, 0)
 
     init {
         viewModelScope.launch {

@@ -1,10 +1,13 @@
 package com.unilasalle.tp.services.network
 
 import com.unilasalle.tp.services.network.datas.Product
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
+import java.util.concurrent.TimeUnit
+
 
 /**
  * Interface for the API service
@@ -25,10 +28,16 @@ interface ApiService {
     companion object {
         private const val BASE_URL = "https://fakestoreapi.com/"
 
+        private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
+            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .build()
+
         fun createService(): ApiService {
             return Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(okHttpClient)
                 .build()
                 .create(ApiService::class.java)
         }
