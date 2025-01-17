@@ -15,6 +15,9 @@ interface CartItemController {
     @Query("SELECT * FROM cart_items WHERE productId = :productId")
     suspend fun getCartItemByProductId(productId: Int): CartItem?
 
+    @Query("SELECT * FROM cart_items WHERE cartId = :cartId")
+    suspend fun getCartItemsByCartId(cartId: String): List<CartItem>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(cartItem: CartItem)
 

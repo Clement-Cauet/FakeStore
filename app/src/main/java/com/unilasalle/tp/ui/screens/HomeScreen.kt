@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
+import com.unilasalle.tp.services.database.controllers.CartController
 import com.unilasalle.tp.services.database.controllers.CartItemController
 import com.unilasalle.tp.services.network.ApiService
 import com.unilasalle.tp.services.network.datas.Product
@@ -21,9 +22,9 @@ import com.unilasalle.tp.viewmodels.CartViewModelFactory
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeScreen(cartItemController: CartItemController) {
+fun HomeScreen(cartController: CartController, cartItemController: CartItemController) {
     val context = LocalContext.current
-    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(cartItemController))[CartViewModel::class.java]
+    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(cartController,cartItemController))[CartViewModel::class.java]
     val coroutineScope = rememberCoroutineScope()
     val apiService = ApiService.createService()
 

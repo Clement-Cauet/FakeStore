@@ -3,6 +3,7 @@ package com.unilasalle.tp.viewmodels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
+import com.unilasalle.tp.services.database.controllers.CartItemController
 import com.unilasalle.tp.services.database.controllers.UsersController
 import com.unilasalle.tp.services.database.entities.User
 import kotlinx.coroutines.flow.MutableStateFlow

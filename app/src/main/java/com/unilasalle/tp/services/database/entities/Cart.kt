@@ -7,5 +7,6 @@ import java.util.UUID
 @Entity(tableName = "carts")
 data class Cart(
     @PrimaryKey val id: String = UUID.randomUUID().toString(),
-    val userId: String
+    val userId: String,
+    val datetime: Long = System.currentTimeMillis()
 )

@@ -81,7 +81,10 @@ fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: C
                 )
                 Button(
                     onClick = {
-                        cartViewModel.addToCart(product.id, quantity)
+                        if (cartViewModel.getCurrentCartId() == null) {
+                            cartViewModel.createTemporaryCart()
+                        }
+                        cartViewModel.addToTemporaryCart(product.id, quantity)
                         onDismiss()
                     },
                     modifier = Modifier.fillMaxWidth()
