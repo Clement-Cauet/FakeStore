@@ -12,10 +12,10 @@ import com.unilasalle.tp.LoginActivity
 import com.unilasalle.tp.services.database.entities.User
 
 @Composable
-fun ProfileScreen(context: Context, users: List<User>) {
+fun ProfileScreen(context: Context, user: User?) {
     Column(modifier = Modifier.fillMaxWidth()) {
-        users.forEach { user ->
-            Text(text = "Email: ${user.email}")
+        user?.let {
+            Text(text = "Email: ${it.email}")
         }
 
         Button(

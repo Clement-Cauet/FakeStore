@@ -13,10 +13,10 @@ import com.unilasalle.tp.ui.screens.ProfileScreen
 import com.unilasalle.tp.services.database.entities.User
 
 @Composable
-fun NavigationGraph(navController: NavHostController, cartItemController: CartItemController, context: Context, users: List<User>, modifier: Modifier = Modifier) {
+fun NavigationGraph(navController: NavHostController, cartItemController: CartItemController, context: Context, user: User?, modifier: Modifier = Modifier) {
     NavHost(navController = navController, startDestination = "home", modifier = modifier) {
         composable("home") { HomeScreen(cartItemController) }
         composable("cart") { CartScreen(cartItemController) }
-        composable("profile") { ProfileScreen(context, users) }
+        composable("profile") { ProfileScreen(context, user) }
     }
 }

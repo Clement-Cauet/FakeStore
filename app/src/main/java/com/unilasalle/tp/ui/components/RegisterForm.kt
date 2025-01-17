@@ -33,7 +33,7 @@ fun RegisterForm(onRegister: (String, String) -> Unit) {
             .imePadding()
     ) {
         Text(
-            text = "Login",
+            text = "Register",
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold
         )

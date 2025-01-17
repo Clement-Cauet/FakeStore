@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.unilasalle.tp.navigations.BottomNavigationBar
@@ -21,11 +19,11 @@ import com.unilasalle.tp.navigations.NavigationGraph
 import com.unilasalle.tp.navigations.rememberNavigationState
 import com.unilasalle.tp.services.database.AppDatabase
 import com.unilasalle.tp.services.database.DatabaseProvider
-import com.unilasalle.tp.services.database.entities.User
 import com.unilasalle.tp.ui.theme.TPTheme
 import com.unilasalle.tp.viewmodels.CartViewModel
 import com.unilasalle.tp.viewmodels.CartViewModelFactory
-import kotlinx.coroutines.launch
+import com.unilasalle.tp.viewmodels.UsersViewModel
+import com.unilasalle.tp.viewmodels.UsersViewModelFactory
 
 class MainActivity : ComponentActivity(), DatabaseProvider {
 
@@ -42,12 +40,12 @@ class MainActivity : ComponentActivity(), DatabaseProvider {
             val navController = rememberNavController()
             val navigationState = rememberNavigationState()
             val cartViewModel: CartViewModel = viewModel(factory = CartViewModelFactory(database.cartItemController()))
+            val usersViewModel: UsersViewModel = viewModel(factory = UsersViewModelFactory(database.usersController()))
 
-            // A Remplacer par un viewmodel
-            var users = rememberSaveable() { mutableListOf<User>() }
-            lifecycleScope.launch {
-                users = database.usersController().getAll().toMutableList()
-            }
+            val userId = intent.getStringExtra("userId") ?: ""
+            usersViewModel.fetchUserById(userId)
+            val user by usersViewModel.user.collectAsState()
+
 
             TPTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
@@ -65,7 +63,7 @@ class MainActivity : ComponentActivity(), DatabaseProvider {
                             navController = navController,
                             cartItemController = database.cartItemController(),
                             context = this,
-                            users = users,
+                            user = user,
                             modifier = Modifier.padding(innerPadding)
                         )
                     }

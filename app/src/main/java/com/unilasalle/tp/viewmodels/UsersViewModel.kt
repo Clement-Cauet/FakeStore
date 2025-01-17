@@ -9,23 +9,23 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class UserViewModel(private val usersController: UsersController) : ViewModel() {
+class UsersViewModel(private val usersController: UsersController) : ViewModel() {
 
-    private val _users = MutableStateFlow<List<User>>(emptyList())
-    val users: StateFlow<List<User>> = _users
+    private val _user = MutableStateFlow<User?>(null)
+    val user: StateFlow<User?> = _user
 
-    init {
+    fun fetchUserById(userId: String) {
         viewModelScope.launch {
-            _users.value = usersController.getAll()
+            _user.value = usersController.getUserById(userId)
         }
     }
 }
 
-class UserViewModelFactory(private val usersController: UsersController) : ViewModelProvider.Factory {
+class UsersViewModelFactory(private val usersController: UsersController) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(UsersViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return UserViewModel(usersController) as T
+            return UsersViewModel(usersController) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }

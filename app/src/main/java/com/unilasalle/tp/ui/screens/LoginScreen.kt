@@ -41,7 +41,7 @@ fun LoginScreen(navController: NavController, usersController: UsersController) 
                 loginViewModel.login(email, password) { user ->
                     if (user != null) {
                         val intent = Intent(context, MainActivity::class.java)
-                        intent.putExtra("userId", user.id.toLong())
+                        intent.putExtra("userId", user.id)
                         context.startActivity(intent)
                     } else {
                         Toast.makeText(context, "Invalid email or password", Toast.LENGTH_SHORT)

@@ -14,18 +14,18 @@ import com.unilasalle.tp.services.database.entities.User
  */
 @Dao
 interface UsersController {
-    @Query("SELECT * FROM Users")
+    @Query("SELECT * FROM users")
     suspend fun getAll(): List<User>
 
     @Query("SELECT * FROM users WHERE email = :email AND password = :password")
     suspend fun getUser(email: String, password: String): User?
 
     @Query("SELECT * FROM users WHERE id = :id")
-    suspend fun getUserById(id: Long): User?
+    suspend fun getUserById(id: String): User?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(users: User)
+    suspend fun insert(user: User)
 
     @Delete
-    suspend fun delete(users: User)
+    suspend fun delete(user: User)
 }

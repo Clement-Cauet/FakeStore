@@ -41,7 +41,7 @@ fun RegisterScreen(navController: NavController, usersController: UsersControlle
                 registerViewModel.register(email, password) { user ->
                     if (user != null) {
                         val intent = Intent(context, MainActivity::class.java)
-                        intent.putExtra("userId", user.id.toLong())
+                        intent.putExtra("userId", user.id)
                         context.startActivity(intent)
                     } else {
                         Toast.makeText(context, "Registration failed", Toast.LENGTH_SHORT).show()
