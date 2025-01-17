@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: CartViewModel) {
+fun CartItemDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: CartViewModel) {
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
     var quantity by remember { mutableIntStateOf(1) }
