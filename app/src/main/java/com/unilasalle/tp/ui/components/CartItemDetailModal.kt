@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.room.util.TableInfo
 import coil.compose.rememberImagePainter
 import com.unilasalle.tp.services.network.datas.Product
 import com.unilasalle.tp.viewmodels.CartViewModel

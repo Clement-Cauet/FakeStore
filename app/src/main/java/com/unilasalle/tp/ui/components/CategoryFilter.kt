@@ -3,10 +3,13 @@ package com.unilasalle.tp.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.unilasalle.tp.services.network.ApiService
 import kotlinx.coroutines.launch
 
@@ -25,14 +28,23 @@ fun CategoryFilter(onSelected: (String) -> Unit) {
     }
 
     Box(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
-        Text(
-            text = selectedCategory,
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { expanded = true }
                 .padding(16.dp)
-                .background(MaterialTheme.colorScheme.surface)
-        )
+                .background(MaterialTheme.colorScheme.surface),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = selectedCategory,
+                fontSize = 18.sp,
+            )
+            Icon(
+                imageVector = Icons.Filled.ArrowDropDown,
+                contentDescription = "Dropdown Icon"
+            )
+        }
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
