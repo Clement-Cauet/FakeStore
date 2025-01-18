@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.input.KeyboardType
@@ -58,8 +59,18 @@ fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: C
                 contentScale = ContentScale.Crop
             )
             Column(modifier = Modifier.padding(8.dp)) {
-                Text("Price")
-                Text(text = "\$${product.price}")
+                Text("Category: ${product.category}")
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text("Price: \$${product.price}")
+                    Column {
+                        Text("Rating: ${product.rating.rate}")
+                        Text("${product.rating.count} reviews")
+                    }
+                }
             }
             Column(modifier = Modifier.padding(8.dp)) {
                 Text("Description")
