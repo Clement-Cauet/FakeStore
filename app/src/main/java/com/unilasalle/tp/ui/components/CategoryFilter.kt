@@ -13,6 +13,11 @@ import androidx.compose.ui.unit.sp
 import com.unilasalle.tp.services.network.ApiService
 import kotlinx.coroutines.launch
 
+/**
+ * Category filter.
+ *
+ * @param onSelected The on selected.
+ */
 @Composable
 fun CategoryFilter(onSelected: (String) -> Unit) {
     val coroutineScope = rememberCoroutineScope()

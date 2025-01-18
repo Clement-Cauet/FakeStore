@@ -17,6 +17,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
+/**
+ * Cart view model.
+ *
+ * @param context The context.
+ * @param cartController The cart controller.
+ * @param cartItemController The cart item controller.
+ */
 class CartViewModel(context: Context, private val cartController: CartController, private val cartItemController: CartItemController) : ViewModel() {
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences("CartPreferences", Context.MODE_PRIVATE)
 
@@ -49,32 +56,63 @@ class CartViewModel(context: Context, private val cartController: CartController
         items.sumOf { it.quantity }
     }.stateIn(viewModelScope, SharingStarted.Lazily, 0)
 
+    /**
+     * Get cart items by cart id.
+     *
+     * @param cartId The cart id.
+     * @return The cart items.
+     */
     suspend fun getCartItemsByCartId(cartId: String): List<CartItem> {
         return cartItemController.getCartItemsByCartId(cartId)
     }
 
+    /**
+     * Get cart by cart id.
+     *
+     * @param cartId The user id.
+     * @return The cart.
+     */
     fun loadCartItems(cartId: String) {
         viewModelScope.launch {
             _cartItems.value = cartItemController.getCartItemsByCartId(cartId)
         }
     }
 
+    /**
+     * Load cart history.
+     *
+     * @param userId The user id.
+     */
     fun loadCartHistory(userId: String) {
         viewModelScope.launch {
             _carts.value = cartController.getCartUserId(userId)
         }
     }
 
+    /**
+     * Create temporary cart.
+     */
     fun createTemporaryCart() {
         if (currentCartId == null) {
             currentCartId = UUID.randomUUID().toString()
         }
     }
 
+    /**
+     * Get current cart id.
+     *
+     * @return The current cart id.
+     */
     fun getCurrentCartId(): String? {
         return currentCartId
     }
 
+    /**
+     * Add to temporary cart.
+     *
+     * @param productId The product id.
+     * @param quantity The quantity.
+     */
     fun addToTemporaryCart(productId: Int, quantity: Int) {
         currentCartId?.let { cartId ->
             viewModelScope.launch {
@@ -85,6 +123,11 @@ class CartViewModel(context: Context, private val cartController: CartController
         }
     }
 
+    /**
+     * Confirm cart.
+     *
+     * @param userId The user id.
+     */
     fun confirmCart(userId: String) {
         currentCartId?.let { cartId ->
             viewModelScope.launch {
@@ -96,6 +139,11 @@ class CartViewModel(context: Context, private val cartController: CartController
         }
     }
 
+    /**
+     * Remove from cart.
+     *
+     * @param cartItem The cart item.
+     */
     fun removeFromCart(cartItem: CartItem) {
         viewModelScope.launch {
             cartItemController.delete(cartItem)
@@ -104,6 +152,13 @@ class CartViewModel(context: Context, private val cartController: CartController
     }
 }
 
+/**
+ * Cart view model factory.
+ *
+ * @param context The context.
+ * @param cartController The cart controller.
+ * @param cartItemController The cart item controller.
+ */
 class CartViewModelFactory(private val context: Context, private val cartController: CartController, private val cartItemController: CartItemController) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CartViewModel::class.java)) {

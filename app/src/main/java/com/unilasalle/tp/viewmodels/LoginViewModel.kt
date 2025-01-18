@@ -7,8 +7,20 @@ import com.unilasalle.tp.services.database.entities.User
 import com.unilasalle.tp.services.database.controllers.UsersController
 import kotlinx.coroutines.launch
 
+/**
+ * Login view model.
+ *
+ * @param usersController The users controller.
+ */
 class LoginViewModel(private val usersController: UsersController) : ViewModel() {
 
+    /**
+     * Login.
+     *
+     * @param email The email.
+     * @param password The password.
+     * @param onResult The on result.
+     */
     fun login(email: String, password: String, onResult: (User?) -> Unit) {
         viewModelScope.launch {
             val user = usersController.getUser(email, password)
@@ -17,6 +29,11 @@ class LoginViewModel(private val usersController: UsersController) : ViewModel()
     }
 }
 
+/**
+ * Login view model factory.
+ *
+ * @param usersController The users controller.
+ */
 class LoginViewModelFactory(private val usersController: UsersController) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {

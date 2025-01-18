@@ -19,6 +19,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Register form.
+ *
+ * @param onRegister The on register.
+ */
 @Composable
 fun RegisterForm(onRegister: (String, String) -> Unit) {
     var email by remember { mutableStateOf("") }

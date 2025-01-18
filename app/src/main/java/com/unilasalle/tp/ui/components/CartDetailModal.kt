@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +35,13 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
+/**
+ * Cart detail modal.
+ *
+ * @param cart The cart.
+ * @param cartItems The cart items.
+ * @param onDismiss The on dismiss.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartDetailModal(cart: Cart, cartItems: List<CartItem>, onDismiss: () -> Unit) {

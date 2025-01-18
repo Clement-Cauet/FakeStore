@@ -16,9 +16,16 @@ import com.unilasalle.tp.services.network.datas.Product
 import com.unilasalle.tp.viewmodels.CartViewModel
 import kotlinx.coroutines.launch
 
+/**
+ * Product detail modal.
+ *
+ * @param product The product.
+ * @param onDismiss The on dismiss.
+ * @param cartViewModel The cart view model.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CartItemDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: CartViewModel) {
+fun ProductDetailModal(product: Product, onDismiss: () -> Unit, cartViewModel: CartViewModel) {
     val sheetState = rememberModalBottomSheetState()
     val coroutineScope = rememberCoroutineScope()
     var quantity by remember { mutableIntStateOf(1) }

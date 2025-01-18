@@ -23,6 +23,12 @@ import com.unilasalle.tp.ui.components.LoginForm
 import com.unilasalle.tp.viewmodels.LoginViewModel
 import com.unilasalle.tp.viewmodels.LoginViewModelFactory
 
+/**
+ * Login screen.
+ *
+ * @param navController The nav controller.
+ * @param usersController The users controller.
+ */
 @Composable
 fun LoginScreen(navController: NavController, usersController: UsersController) {
     val context = LocalContext.current

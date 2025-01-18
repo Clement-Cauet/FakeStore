@@ -3,7 +3,6 @@ package com.unilasalle.tp.ui.screens
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -48,6 +47,13 @@ import com.unilasalle.tp.viewmodels.CartViewModel
 import com.unilasalle.tp.viewmodels.CartViewModelFactory
 import kotlinx.coroutines.launch
 
+/**
+ * Cart screen.
+ *
+ * @param cartController The cart controller.
+ * @param cartItemController The cart item controller.
+ * @param user The user.
+ */
 @Composable
 fun CartScreen(cartController: CartController, cartItemController: CartItemController, user: User?) {
     val context = LocalContext.current
@@ -116,6 +122,12 @@ fun CartScreen(cartController: CartController, cartItemController: CartItemContr
     }
 }
 
+/**
+ * Cart item row.
+ *
+ * @param cartItem The cart item.
+ * @param cartViewModel The cart view model.
+ */
 @Composable
 fun CartItemRow(cartItem: CartItem, cartViewModel: CartViewModel) {
     val coroutineScope = rememberCoroutineScope()

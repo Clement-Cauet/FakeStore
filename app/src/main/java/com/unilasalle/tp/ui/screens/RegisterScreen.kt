@@ -23,6 +23,12 @@ import com.unilasalle.tp.ui.components.RegisterForm
 import com.unilasalle.tp.viewmodels.RegisterViewModel
 import com.unilasalle.tp.viewmodels.RegisterViewModelFactory
 
+/**
+ * Register screen.
+ *
+ * @param navController The nav controller.
+ * @param usersController The users controller.
+ */
 @Composable
 fun RegisterScreen(navController: NavController, usersController: UsersController) {
     val context = LocalContext.current

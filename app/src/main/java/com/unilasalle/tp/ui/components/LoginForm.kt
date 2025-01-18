@@ -19,6 +19,11 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * Login form.
+ *
+ * @param onLogin The on login.
+ */
 @Composable
 fun LoginForm(onLogin: (String, String) -> Unit) {
     var email by remember { mutableStateOf("") }

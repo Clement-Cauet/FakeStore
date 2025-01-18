@@ -20,7 +20,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -42,6 +41,13 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
+/**
+ * Profile screen.
+ *
+ * @param cartController The cart controller.
+ * @param cartItemController The cart item controller.
+ * @param user The user.
+ */
 @Composable
 fun ProfileScreen(cartController: CartController, cartItemController: CartItemController, user: User?) {
     val context = LocalContext.current
@@ -101,6 +107,12 @@ fun ProfileScreen(cartController: CartController, cartItemController: CartItemCo
     }
 }
 
+/**
+ * Cart history item.
+ *
+ * @param cart The cart.
+ * @param cartViewModel The cart view model.
+ */
 @Composable
 fun CartHistoryItem(cart: Cart, cartViewModel: CartViewModel) {
     val coroutineScope = rememberCoroutineScope()

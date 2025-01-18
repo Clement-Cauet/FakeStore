@@ -13,6 +13,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.Composable
 
+/**
+ * Remember the navigation state.
+ *
+ * @return The navigation state.
+ */
 @Composable
 fun rememberNavigationState(): NavigationState {
     var selectedItemIndex by rememberSaveable { mutableIntStateOf(0) }

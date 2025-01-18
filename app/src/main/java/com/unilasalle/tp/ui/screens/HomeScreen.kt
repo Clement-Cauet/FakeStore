@@ -21,11 +21,17 @@ import com.unilasalle.tp.services.database.controllers.CartItemController
 import com.unilasalle.tp.services.network.ApiService
 import com.unilasalle.tp.services.network.datas.Product
 import com.unilasalle.tp.ui.components.CategoryFilter
-import com.unilasalle.tp.ui.components.CartItemDetailModal
+import com.unilasalle.tp.ui.components.ProductDetailModal
 import com.unilasalle.tp.viewmodels.CartViewModel
 import com.unilasalle.tp.viewmodels.CartViewModelFactory
 import kotlinx.coroutines.launch
 
+/**
+ * Home screen.
+ *
+ * @param cartController The cart controller.
+ * @param cartItemController The cart item controller.
+ */
 @Composable
 fun HomeScreen(cartController: CartController, cartItemController: CartItemController) {
     val context = LocalContext.current
@@ -61,18 +67,24 @@ fun HomeScreen(cartController: CartController, cartItemController: CartItemContr
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             items(products) { product ->
-                CartItemCard(product = product, onClick = { selectedProduct = product })
+                ProductCard(product = product, onClick = { selectedProduct = product })
             }
         }
 
         selectedProduct?.let { product ->
-            CartItemDetailModal(product = product, onDismiss = { selectedProduct = null }, cartViewModel = cartViewModel)
+            ProductDetailModal(product = product, onDismiss = { selectedProduct = null }, cartViewModel = cartViewModel)
         }
     }
 }
 
+/**
+ * Product card.
+ *
+ * @param product The product.
+ * @param onClick The on click.
+ */
 @Composable
-fun CartItemCard(product: Product, onClick: () -> Unit) {
+fun ProductCard(product: Product, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

@@ -12,6 +12,14 @@ import androidx.compose.ui.unit.sp
 import com.unilasalle.tp.services.database.entities.User
 import kotlinx.coroutines.launch
 
+/**
+ * Cart confirmation modal.
+ *
+ * @param totalAmount The total amount.
+ * @param user The user.
+ * @param onDismiss The on dismiss.
+ * @param onConfirm The on confirm.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CartConfirmationModal(totalAmount: Double, user: User?, onDismiss: () -> Unit, onConfirm: () -> Unit) {

@@ -16,6 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
+/**
+ * Bottom navigation bar composable.
+ *
+ * @param navController The navigation controller.
+ * @param state The navigation state.
+ * @param count The count of items in the cart.
+ */
 @Composable
 fun BottomNavigationBar(navController: NavController, state: NavigationState, count: Int) {
     NavigationBar {

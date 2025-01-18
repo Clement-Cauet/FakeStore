@@ -8,8 +8,20 @@ import com.unilasalle.tp.services.database.controllers.UsersController
 import com.unilasalle.tp.services.database.entities.User
 import kotlinx.coroutines.launch
 
+/**
+ * Register view model.
+ *
+ * @param usersController The users controller.
+ */
 class RegisterViewModel(private val usersController: UsersController) : ViewModel() {
 
+    /**
+     * Register.
+     *
+     * @param email The email.
+     * @param password The password.
+     * @param onResult The on result.
+     */
     fun register(email: String, password: String, onResult: (User?) -> Unit) {
         viewModelScope.launch {
             val user = User(email = email, password = password)
@@ -24,6 +36,11 @@ class RegisterViewModel(private val usersController: UsersController) : ViewMode
     }
 }
 
+/**
+ * Register view model factory.
+ *
+ * @param usersController The users controller.
+ */
 class RegisterViewModelFactory(private val usersController: UsersController) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RegisterViewModel::class.java)) {
