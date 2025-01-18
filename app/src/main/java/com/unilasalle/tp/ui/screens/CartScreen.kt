@@ -72,7 +72,11 @@ fun CartScreen(cartController: CartController, cartItemController: CartItemContr
         totalAmount = total
     }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxHeight()
+            .padding(16.dp)
+    ) {
         Text(
             text = "Cart",
             fontSize = 24.sp,

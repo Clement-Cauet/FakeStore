@@ -6,7 +6,9 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.unilasalle.tp.services.database.entities.User
 import kotlinx.coroutines.launch
 
@@ -31,13 +33,20 @@ fun CartConfirmationModal(totalAmount: Double, user: User?, onDismiss: () -> Uni
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            Text(text = "Confirm Purchase")
+            Text(
+                text = "Confirm Purchase",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold
+            )
             Spacer(modifier = Modifier.height(8.dp))
             user?.let {
                 Text(text = "Email: ${it.email}")
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = "Total: \$${String.format("%.2f", totalAmount)}")
+            Text(
+                text = "Total: \$${String.format("%.2f", totalAmount)}",
+                fontWeight = FontWeight.Bold
+            )
             Spacer(modifier = Modifier.height(16.dp))
             Button(
                 onClick = {
