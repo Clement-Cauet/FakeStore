@@ -29,7 +29,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(cartController: CartController, cartItemController: CartItemController) {
     val context = LocalContext.current
-    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(cartController,cartItemController))[CartViewModel::class.java]
+    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(context, cartController,cartItemController))[CartViewModel::class.java]
     val coroutineScope = rememberCoroutineScope()
     val apiService = ApiService.createService()
 

@@ -43,7 +43,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun ProfileScreen(cartController: CartController, cartItemController: CartItemController, user: User?) {
     val context = LocalContext.current
-    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(cartController, cartItemController))[CartViewModel::class.java]
+    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(context, cartController, cartItemController))[CartViewModel::class.java]
 
     val carts by cartViewModel.carts.collectAsState(initial = emptyList())
 

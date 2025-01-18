@@ -51,22 +51,20 @@ import kotlinx.coroutines.launch
 @Composable
 fun CartScreen(cartController: CartController, cartItemController: CartItemController, user: User?) {
     val context = LocalContext.current
-    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(cartController, cartItemController))[CartViewModel::class.java]
+    val cartViewModel = ViewModelProvider(context as ComponentActivity, CartViewModelFactory(context, cartController, cartItemController))[CartViewModel::class.java]
 
     val cartItems by cartViewModel.filteredCartItems.collectAsState(initial = emptyList())
     val coroutineScope = rememberCoroutineScope()
-    val apiService = ApiService.createService()
+    val apiService = remember { ApiService.createService() }
 
     var totalAmount by remember { mutableDoubleStateOf(0.0) }
     var showModal by remember { mutableStateOf(false) }
 
-    LaunchedEffect(cartViewModel.getCurrentCartId()) {
+    LaunchedEffect(cartItems) {
         cartViewModel.getCurrentCartId()?.let { cartId ->
             cartViewModel.loadCartItems(cartId)
         }
-    }
 
-    LaunchedEffect(cartItems) {
         val total = cartItems.sumOf { cartItem ->
             val product = apiService.getProduct(cartItem.productId)
             product.price.times(cartItem.quantity).toDouble()
@@ -117,10 +115,10 @@ fun CartScreen(cartController: CartController, cartItemController: CartItemContr
 @Composable
 fun CartItemRow(cartItem: CartItem, cartViewModel: CartViewModel) {
     val coroutineScope = rememberCoroutineScope()
-    val apiService = ApiService.createService()
+    val apiService = remember { ApiService.createService() }
     var product by remember { mutableStateOf<Product?>(null) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(cartItem.productId) {
         coroutineScope.launch {
             product = apiService.getProduct(cartItem.productId)
         }

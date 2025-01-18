@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity(), DatabaseProvider {
 
             val navController = rememberNavController()
             val navigationState = rememberNavigationState()
-            val cartViewModel: CartViewModel = viewModel(factory = CartViewModelFactory(database.cartController(), database.cartItemController()))
+            val cartViewModel: CartViewModel = viewModel(factory = CartViewModelFactory(this, database.cartController(), database.cartItemController()))
             val usersViewModel: UsersViewModel = viewModel(factory = UsersViewModelFactory(database.usersController()))
 
             val userId = intent.getStringExtra("userId") ?: ""

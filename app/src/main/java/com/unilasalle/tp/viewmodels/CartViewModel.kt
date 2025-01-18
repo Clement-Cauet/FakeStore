@@ -1,5 +1,7 @@
 package com.unilasalle.tp.viewmodels
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -15,7 +17,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-class CartViewModel(private val cartController: CartController, private val cartItemController: CartItemController) : ViewModel() {
+class CartViewModel(context: Context, private val cartController: CartController, private val cartItemController: CartItemController) : ViewModel() {
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences("CartPreferences", Context.MODE_PRIVATE)
 
     private val _carts = MutableStateFlow<List<Cart>>(emptyList())
     val carts: StateFlow<List<Cart>> = _carts
@@ -23,11 +26,18 @@ class CartViewModel(private val cartController: CartController, private val cart
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
     val cartItems: StateFlow<List<CartItem>> = _cartItems
 
-    private var currentCartId: String? = null
+    private var currentCartId: String? = sharedPreferences.getString("currentCartId", null)
+        set(value) {
+            field = value
+            sharedPreferences.edit().putString("currentCartId", value).apply()
+        }
 
     init {
         viewModelScope.launch {
             _cartItems.value = cartItemController.getAll()
+            if (_cartItems.value.isNotEmpty() && currentCartId == null) {
+                currentCartId = UUID.randomUUID().toString()
+            }
         }
     }
 
@@ -56,7 +66,9 @@ class CartViewModel(private val cartController: CartController, private val cart
     }
 
     fun createTemporaryCart() {
-        currentCartId = UUID.randomUUID().toString()
+        if (currentCartId == null) {
+            currentCartId = UUID.randomUUID().toString()
+        }
     }
 
     fun getCurrentCartId(): String? {
@@ -84,18 +96,6 @@ class CartViewModel(private val cartController: CartController, private val cart
         }
     }
 
-//    fun addToCart(productId: Int, quantity: Int) {
-//        viewModelScope.launch {
-//            val cartItem = cartItemController.getCartItemByProductId(productId)
-//            if (cartItem != null) {
-//                cartItemController.insert(cartItem.copy(quantity = cartItem.quantity + quantity))
-//            } else {
-//                cartItemController.insert(CartItem(productId = productId, quantity = quantity))
-//            }
-//            _cartItems.value = cartItemController.getAll()
-//        }
-//    }
-
     fun removeFromCart(cartItem: CartItem) {
         viewModelScope.launch {
             cartItemController.delete(cartItem)
@@ -104,11 +104,11 @@ class CartViewModel(private val cartController: CartController, private val cart
     }
 }
 
-class CartViewModelFactory(private val cartController: CartController, private val cartItemController: CartItemController) : ViewModelProvider.Factory {
+class CartViewModelFactory(private val context: Context, private val cartController: CartController, private val cartItemController: CartItemController) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CartViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return CartViewModel(cartController, cartItemController) as T
+            return CartViewModel(context, cartController, cartItemController) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
