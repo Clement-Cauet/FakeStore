@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.unilasalle.tp"
+    namespace = "com.unilasalle.fakestore"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.unilasalle.tp"
+        applicationId = "com.unilasalle.fakestore"
         minSdk = 29
         targetSdk = 34
         versionCode = 1

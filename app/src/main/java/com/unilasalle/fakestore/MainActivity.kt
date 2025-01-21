@@ -19,7 +19,7 @@ import com.unilasalle.fakestore.navigations.NavigationGraph
 import com.unilasalle.fakestore.navigations.rememberNavigationState
 import com.unilasalle.fakestore.services.database.AppDatabase
 import com.unilasalle.fakestore.services.database.DatabaseProvider
-import com.unilasalle.fakestore.ui.theme.fakestoreTheme
+import com.unilasalle.fakestore.ui.theme.FakeStoreTheme
 import com.unilasalle.fakestore.viewmodels.CartViewModel
 import com.unilasalle.fakestore.viewmodels.CartViewModelFactory
 import com.unilasalle.fakestore.viewmodels.UsersViewModel
@@ -47,7 +47,7 @@ class MainActivity : ComponentActivity(), DatabaseProvider {
             val user by usersViewModel.user.collectAsState()
 
 
-            TPTheme {
+            FakeStoreTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
                     Scaffold(
                         modifier = Modifier.fillMaxSize(),
